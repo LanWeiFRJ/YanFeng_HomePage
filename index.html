@@ -1,104 +1,121 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>檐枫动漫社 | Yanfeng Anime Club</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Zcool+KuaiLe&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
-    <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            colors: {
-              retro: {
-                cream: '#fcf8e3',
-                paper: '#fff9c4',
-                red: '#c0392b',
-                darkRed: '#8b0000',
-                brown: '#5d4037',
-                black: '#2c2c2c',
-                orange: '#e67e22'
-              },
-              winter: {
-                primary: '#3498db',
-                secondary: '#ecf0f1',
-                accent: '#2980b9'
-              },
-              gma: {
-                primary: '#f1c40f',
-                secondary: '#000000',
-                accent: '#ffffff'
-              }
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>檐枫动漫社 | Yanfeng Anime Club</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Zcool+KuaiLe&family=Noto+Sans+SC:wght@400;700;900&display=swap"
+    rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            retro: {
+              cream: '#fcf8e3',
+              paper: '#fff9c4',
+              red: '#c0392b',
+              darkRed: '#8b0000',
+              brown: '#5d4037',
+              black: '#2c2c2c',
+              orange: '#e67e22'
             },
-            fontFamily: {
-              retro: ['"Zcool KuaiLe"', 'cursive'],
-              sans: ['"Noto Sans SC"', 'sans-serif'],
+            winter: {
+              primary: '#3498db',
+              secondary: '#ecf0f1',
+              accent: '#2980b9'
             },
-            backgroundImage: {
-              'checker-pattern': "repeating-linear-gradient(45deg, #c0392b 25%, transparent 25%, transparent 75%, #c0392b 75%, #c0392b), repeating-linear-gradient(45deg, #c0392b 25%, transparent 25%, transparent 75%, #c0392b 75%, #c0392b)"
+            gma: {
+              primary: '#f1c40f',
+              secondary: '#000000',
+              accent: '#ffffff'
             }
+          },
+          fontFamily: {
+            retro: ['"Zcool KuaiLe"', 'cursive'],
+            sans: ['"Noto Sans SC"', 'sans-serif'],
+          },
+          backgroundImage: {
+            'checker-pattern': "repeating-linear-gradient(45deg, var(--theme-primary) 25%, transparent 25%, transparent 75%, var(--theme-primary) 75%, var(--theme-primary)), repeating-linear-gradient(45deg, var(--theme-primary) 25%, transparent 25%, transparent 75%, var(--theme-primary) 75%, var(--theme-primary))"
           }
         }
       }
-    </script>
-    <style>
-      body {
-        background-color: #fcf8e3;
-        color: #2c2c2c;
-      }
-      /* Custom scrollbar */
-      ::-webkit-scrollbar {
-        width: 10px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #fcf8e3;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #c0392b;
-        border-radius: 5px;
-        border: 2px solid #fcf8e3;
-      }
-      .checker-bg {
-        background-color: #fcf8e3;
-        opacity: 0.8;
-        background-image:  linear-gradient(45deg, #c0392b 25%, transparent 25%, transparent 75%, #c0392b 75%, #c0392b), linear-gradient(45deg, #c0392b 25%, transparent 25%, transparent 75%, #c0392b 75%, #c0392b);
-        background-size: 20px 20px;
-        background-position: 0 0, 10px 10px;
-      }
-      
-      /* Theme overrides via CSS variables for easier switching */
-      :root {
-        --theme-primary: #c0392b;
-        --theme-secondary: #fcf8e3;
-        --theme-accent: #5d4037;
-        --theme-border: #2c2c2c;
-      }
-      
-      [data-theme='winter'] {
-        --theme-primary: #3498db;
-        --theme-secondary: #f0f8ff;
-        --theme-accent: #2c3e50;
-        --theme-border: #1a5276;
-      }
-      
-      [data-theme='gma'] {
-        --theme-primary: #d4ac0d; /* Gold */
-        --theme-secondary: #1a1a1a; /* Dark */
-        --theme-accent: #ffffff;
-        --theme-border: #f1c40f;
-        color: white;
-      }
-      
-      [data-theme='gma'] body {
-        background-color: #1a1a1a;
-      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #fcf8e3;
+      color: #2c2c2c;
+    }
 
-      .theme-text { color: var(--theme-primary); }
-      .theme-bg { background-color: var(--theme-primary); }
-      .theme-border { borderColor: var(--theme-border); }
-    </style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--theme-secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--theme-primary);
+      border-radius: 5px;
+      border: 2px solid var(--theme-secondary);
+    }
+
+    .checker-bg {
+      background-color: var(--theme-secondary);
+      opacity: 0.8;
+      background-image: linear-gradient(45deg, var(--theme-primary) 25%, transparent 25%, transparent 75%, var(--theme-primary) 75%, var(--theme-primary)), linear-gradient(45deg, var(--theme-primary) 25%, transparent 25%, transparent 75%, var(--theme-primary) 75%, var(--theme-primary));
+      background-size: 20px 20px;
+      background-position: 0 0, 10px 10px;
+      transition: background-color 0.3s, background-image 0.3s;
+    }
+
+    /* Theme overrides via CSS variables for easier switching */
+    :root {
+      --theme-primary: #c0392b;
+      --theme-secondary: #fcf8e3;
+      --theme-accent: #5d4037;
+      --theme-border: #2c2c2c;
+    }
+
+    [data-theme='winter'] {
+      --theme-primary: #3498db;
+      --theme-secondary: #f0f8ff;
+      --theme-accent: #2c3e50;
+      --theme-border: #1a5276;
+    }
+
+    [data-theme='gma'] {
+      --theme-primary: #d4ac0d;
+      /* Gold */
+      --theme-secondary: #1a1a1a;
+      /* Dark */
+      --theme-accent: #ffffff;
+      --theme-border: #f1c40f;
+      color: white;
+    }
+
+    [data-theme='gma'] body {
+      background-color: #1a1a1a;
+    }
+
+    .theme-text {
+      color: var(--theme-primary);
+    }
+
+    .theme-bg {
+      background-color: var(--theme-primary);
+    }
+
+    .theme-border {
+      borderColor: var(--theme-border);
+    }
+  </style>
   <script type="importmap">
 {
   "imports": {
@@ -110,10 +127,12 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
+  <link rel="stylesheet" href="/index.css">
 </head>
-  <body>
-    <div id="root"></div>
+
+<body>
+  <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
+
 </html>

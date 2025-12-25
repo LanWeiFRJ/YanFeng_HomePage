@@ -32,7 +32,11 @@ const RetroCard: React.FC<RetroCardProps> = ({
             {(title || subtitle) && (
               <div className="p-4 border-b-2 border-dashed border-[var(--theme-primary)] bg-opacity-10 bg-[var(--theme-primary)] flex justify-between items-center">
                  <div>
-                    {subtitle && <span className="block text-xs font-bold tracking-widest uppercase text-[var(--theme-accent)] mb-1">{subtitle}</span>}
+                    {subtitle && (
+                      <span className="inline-block text-2xl font-bold tracking-wider px-5 py-2 mb-3 border-2 border-[var(--theme-border)] rounded-md bg-[var(--theme-secondary)] text-[var(--theme-border)] shadow-[4px_4px_0px_rgba(0,0,0,0.1)] transform -rotate-1">
+                        {subtitle}
+                      </span>
+                    )}
                     {title && <h3 className="text-xl md:text-2xl font-retro text-[var(--theme-primary)] drop-shadow-sm">{title}</h3>}
                  </div>
                  <div className="w-8 h-8 rounded-full border-2 border-[var(--theme-primary)] flex items-center justify-center">
