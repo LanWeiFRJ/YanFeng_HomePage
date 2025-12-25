@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Newspaper, Calendar, Hash, Music, Info, Settings, Menu, Star } from 'lucide-react';
+import { Newspaper, Calendar, Hash, Video, Info, Settings, Menu, Star } from 'lucide-react';
 import { AppTheme, NewsItem } from './types';
 import { MOCK_NEWS, TIMELINE_DATA } from './constants';
 import RetroCard from './components/RetroCard';
@@ -127,7 +127,7 @@ const App: React.FC = () => {
                 className={`p-2 rounded border-2 transition-all ${activeTab === 'events' ? 'bg-[var(--theme-primary)] border-[var(--theme-border)] text-white shadow-[2px_2px_0px_var(--theme-border)]' : 'border-transparent hover:bg-gray-100 text-gray-500'}`}
                 title="活动相册"
             >
-                <Music size={20} />
+                <Video size={20} />
             </button>
           </div>
         </header>

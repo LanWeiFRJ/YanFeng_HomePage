@@ -25,7 +25,7 @@ export interface VideoContent {
   id: string;
   title: string;
   url: string; // URL.createObjectURL or external link
-  type: 'local' | 'embed';
+  type: 'bilibili';
   thumbnail?: string;
 }
 
