@@ -16,6 +16,11 @@ export interface NewsItem {
 }
 
 export interface TimelineEvent {
+  month: string;
+  title: string;
+}
+
+export interface HistoryEvent {
   year: string;
   title: string;
   description: string;

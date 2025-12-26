@@ -1,4 +1,4 @@
-import { NewsItem, TimelineEvent } from './types';
+import { NewsItem, TimelineEvent, HistoryEvent } from './types';
 
 // RAG Knowledge Base: This text is injected into the Gemini System Instruction
 export const YANFENG_KNOWLEDGE_BASE = `
@@ -59,9 +59,20 @@ export const MOCK_NEWS: NewsItem[] = [
   }
 ];
 
-export const TIMELINE_DATA: TimelineEvent[] = [
+export const HISTORY_DATA: HistoryEvent[] = [
   { year: '2010', title: '社团成立', description: '几位热爱动漫的学长学姐在旧活动室创立了檐枫。' },
+  { year: '2012', title: '社刊创刊', description: '首期《檐艺》正式发行，收录社员原创图文作品。' },
   { year: '2015', title: '首届GMA', description: '确立了年度颁奖典礼的传统，标志着社团正规化。' },
   { year: '2019', title: '全省高校金奖', description: '《代号：枫》舞台剧荣获全省高校动漫联展金奖。' },
+  { year: '2021', title: '云端相聚', description: '在特殊时期成功举办首届线上冬日祭，连接你我。' },
   { year: '2023', title: '百人社团', description: '注册会员突破500人，活跃干事超过100人。' },
+];
+
+export const TIMELINE_DATA: TimelineEvent[] = [
+  { month: '10月', title: '社团游园会&社团大会' },
+  { month: '11月', title: '秋季学期活动' },
+  { month: '12月', title: '冬日祭' },
+  { month: '2月', title: 'GMA&新年祭' },
+  { month: '3-4月', title: '春季学期活动' },
+  { month: '5月', title: '社庆' },
 ];
