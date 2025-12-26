@@ -5,6 +5,7 @@ import { MOCK_NEWS, TIMELINE_DATA } from './constants';
 import RetroCard from './components/RetroCard';
 import EventGallery from './components/EventGallery';
 import ChatAssistant from './components/ChatAssistant';
+import Timeline from './components/Timeline';
 import logo from './assets/logo.svg';
 
 const App: React.FC = () => {
@@ -36,7 +37,8 @@ const App: React.FC = () => {
       <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-12 py-8">
 
         {/* Header Section */}
-        <header className="mb-12 flex flex-col md:flex-row justify-between items-center gap-8">
+        <header className="mb-12 flex flex-col gap-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           
           {/* Logo / Brand Section - Redesigned */}
           <div className="group cursor-default flex items-center gap-5 transform -rotate-2 hover:rotate-0 transition-transform duration-300 origin-left">
@@ -129,6 +131,12 @@ const App: React.FC = () => {
             >
                 <Video size={20} />
             </button>
+          </div>
+          </div>
+          
+          {/* Timeline Section - Below Logo */}
+          <div className="w-full">
+            <Timeline />
           </div>
         </header>
 
