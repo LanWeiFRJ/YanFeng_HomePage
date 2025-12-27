@@ -70,9 +70,7 @@ export const HISTORY_DATA: HistoryEvent[] = [
 
 export const TIMELINE_DATA: TimelineEvent[] = [
   { month: '10月', title: '社团游园会&社团大会' },
-  { month: '11月', title: '秋季学期活动' },
   { month: '12月', title: '冬日祭' },
   { month: '2月', title: 'GMA&新年祭' },
-  { month: '3-4月', title: '春季学期活动' },
   { month: '5月', title: '社庆' },
 ];

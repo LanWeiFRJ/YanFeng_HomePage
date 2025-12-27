@@ -240,8 +240,8 @@ const App: React.FC = () => {
              <div className="w-12 border-b-2 border-dashed border-[var(--theme-accent)] h-0"></div>
              <Hash size={16} />
           </div>
-          <p className="font-retro text-2xl tracking-widest text-[var(--theme-primary)] drop-shadow-[1px_1px_0px_var(--theme-border)]">IGNOREDONE <span className="text-xs align-middle mx-1">X</span> 檐枫</p>
-          <p className="text-xs mt-3 font-mono font-bold uppercase">© 2024 YANFENG Anime Club. All rights reserved.</p>
+          <p className="font-retro text-2xl tracking-widest text-[var(--theme-primary)] drop-shadow-[1px_1px_0px_var(--theme-border)]">Design by 檐枫技术组</p>
+          <p className="text-xs mt-3 font-mono font-bold uppercase">© YANFENG ACGN Fan CLUB. All rights reserved.</p>
         </footer>
 
         {/* Chat Assistant */}

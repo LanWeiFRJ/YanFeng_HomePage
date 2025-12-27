@@ -6,94 +6,88 @@ interface TimelineProps {
 }
 
 const Timeline: React.FC<TimelineProps> = ({ events }) => {
-  // Helper to calculate position based on academic year (Sept start)
-  const now = new Date();
-  const currentMonth = now.getMonth() + 1; // 1-12
-  const currentDay = now.getDate();
-  // Academic Year: Sept(9) ... Dec(12) ... Jan(13) ... Aug(20)
-  const currentEffMonth = currentMonth < 9 ? currentMonth + 12 : currentMonth;
-
   return (
     <div className="relative w-full py-12 md:py-24 px-4">
-      {/* Desktop Horizontal Line (Dashed) */}
-      <div className="absolute top-1/2 left-0 right-0 h-0 border-t-[3px] border-dashed border-[var(--theme-primary)] -translate-y-[1.5px] hidden md:block opacity-80" />
+      {/* 
+        --------------------------------------------------
+        DYNAMIC STYLES & ANIMATIONS 
+        --------------------------------------------------
+      */}
+      <style>{`
+        @keyframes growLine {
+          0% { width: 0; opacity: 0; }
+          10% { opacity: 1; }
+          100% { width: calc(100% - 4rem); opacity: 1; }
+        }
+        @keyframes popIn {
+          0% { opacity: 0; transform: scale(0) translateY(20px); }
+          60% { opacity: 1; transform: scale(1.1) translateY(0); }
+          100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        @keyframes appearArrow {
+          0% { opacity: 0; transform: translate(-10px, -50%); }
+          100% { opacity: 0.8; transform: translate(0, -50%); }
+        }
+        ${events.map((_, index) => {
+          // Keep the existing floating animation
+          return `
+            @keyframes float-${index} {
+              0%, 100% { transform: translateY(0px); }
+              50% { transform: translateY(-6px); }
+            }
+          `;
+        }).join('')}
+      `}</style>
       
-      {/* Arrow Head at the end of the line */}
-       <div className="absolute top-1/2 -right-4 -translate-y-1/2 hidden md:block text-[var(--theme-primary)] opacity-80">
+      {/* Desktop Horizontal Line (Animated) */}
+      <div 
+        className="absolute top-1/2 left-0 h-0 border-t-[3px] border-dashed border-[var(--theme-primary)] -translate-y-[1.5px] hidden md:block z-0"
+        style={{
+            animation: 'growLine 2s cubic-bezier(0.22, 1, 0.36, 1) forwards',
+            width: '0%', // Start invisible
+            opacity: 0,
+            left: '2rem', // Align start with padding
+        }} 
+      />
+      
+      {/* Arrow Head (Animated Delay) */}
+       <div 
+        className="absolute top-1/2 right-4 -translate-y-1/2 hidden md:block text-[var(--theme-primary)] opacity-0 z-0"
+        style={{
+            animation: 'appearArrow 0.5s ease-out forwards',
+            animationDelay: '1.8s' // Wait for line to mostly finish
+        }}
+       >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
              <path d="m9 5 7 7-7 7" />
           </svg>
        </div>
 
-       {/* Current Position Indicator */}
-       {(() => {
-          let progressIndex = 0;
-
-          if (currentEffMonth < 10) progressIndex = -0.5; // Before Oct
-          else if (currentEffMonth >= 17 && currentDay > 15) progressIndex = 5.5; // After May 15
-          else {
-              // Interpolation Logic
-              if (currentEffMonth === 10) progressIndex = 0 + (currentDay / 31);
-              else if (currentEffMonth === 11) progressIndex = 1 + (currentDay / 30);
-              else if (currentEffMonth >= 12 && currentEffMonth < 14) {
-                  let daysPassed = currentDay + (currentEffMonth === 13 ? 31 : 0);
-                  progressIndex = 2 + (daysPassed / 62);
-              }
-              else if (currentEffMonth === 14) progressIndex = 3 + (currentDay / 28);
-              else if (currentEffMonth >= 15 && currentEffMonth < 17) {
-                  let daysPassed = currentDay + (currentEffMonth === 16 ? 31 : 0);
-                  progressIndex = 4 + (daysPassed / 61);
-              }
-              else if (currentEffMonth === 17) progressIndex = 5 + (currentDay / 31);
-          }
-
-          const leftPos = Math.min(Math.max(((progressIndex + 0.5) / 6) * 100, 2), 98);
-
-          return (
-             <div className="absolute top-0 bottom-0 w-0.5 hidden md:block z-20 pointer-events-none transition-all duration-1000"
-                  style={{ left: `${leftPos}%` }}>
-                
-                {/* Vertical Marker Line (Solid Accent) */}
-                <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 w-0.5 h-8 bg-[var(--theme-accent)]"></div>
-                
-                {/* Visual "Pin" Head on the timeline */}
-                <div className="absolute top-1/2 -translate-y-1/2 -translate-x-[5px] w-3 h-3 rounded-full bg-[var(--theme-accent)] border-2 border-[var(--theme-secondary)] shadow-sm z-30"></div>
-
-                {/* Retro Tag Label */}
-                <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-full transform hover:scale-110 transition-transform">
-                    <div className="bg-[var(--theme-accent)] text-[var(--theme-secondary)] text-xs font-retro py-1 px-2 rounded-sm border-2 border-[var(--theme-border)] shadow-[2px_2px_0px_var(--theme-border)] whitespace-nowrap relative">
-                        当前位置
-                        {/* Little triangle pointing down */}
-                        <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[6px] border-t-[var(--theme-accent)]"></div>
-                    </div>
-                </div>
-             </div>
-          );
-       })()}
-
-      <div className="flex flex-col md:flex-row justify-between items-stretch relative gap-8 md:gap-0 max-w-6xl mx-auto">
+      <div className="flex flex-col md:flex-row justify-between items-stretch relative gap-8 md:gap-0 max-w-6xl mx-auto z-10">
         {events.map((event, index) => {
           const isTop = index % 2 === 0;
-          // Apply random rotation similar to snippet logic: (index % 2 === 0 ? 1 : -1) * (2 + index * 0.5)
           const rotationStr = `${(index % 2 === 0 ? 1 : -1) * (1 + index % 3)}deg`;
-          const animationDelay = `${index * 0.2}s`;
           
-          // Determine if this event is in the Future
-          const eventMonthNum = parseInt(event.month); // "10月" -> 10, "3-4月" -> 3
-          const eventEffMonth = eventMonthNum < 9 ? eventMonthNum + 12 : eventMonthNum;
-          const isFuture = currentEffMonth < eventEffMonth;
+          // Calculate delay: Line takes 2s. Spread events pop-in over that time.
+          // Event 0 starts quickly, Event N starts near end of line animation.
+          const staggerDelay = `${0.2 + (index * 0.25)}s`;
 
           return (
-            <div key={index} className="relative flex-1 group min-w-0 md:px-2">
+            <div 
+                key={index} 
+                className="relative flex-1 group min-w-0 md:px-2 opacity-0" // Start hidden
+                style={{
+                    animation: `popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards`,
+                    animationDelay: staggerDelay
+                }}
+            >
                
                {/* ------------------ MOBILE VIEW ------------------ */}
                <div className="flex md:hidden gap-4">
                   <div className="relative flex flex-col items-center">
                      <div className="absolute top-0 bottom-[-32px] w-0.5 border-l-2 border-dashed border-[var(--theme-primary)] opacity-50 z-0 group-last:bottom-auto group-last:h-full"></div>
                      {/* Mobile Pin */}
-                     <div className={`w-4 h-4 rounded-full border-2 border-[var(--theme-border)] shadow-[2px_2px_0px_var(--theme-border)] z-10 shrink-0 relative
-                        ${isFuture ? 'bg-white' : 'bg-[var(--theme-primary)]'}
-                     `}>
+                     <div className="w-4 h-4 rounded-full border-2 border-[var(--theme-border)] shadow-[2px_2px_0px_var(--theme-border)] z-10 shrink-0 relative bg-[var(--theme-primary)]">
                         <div className="absolute top-0.5 left-0.5 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
                         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1 h-1 bg-[var(--theme-border)] rounded-full"></div>
                      </div>
@@ -111,9 +105,7 @@ const Timeline: React.FC<TimelineProps> = ({ events }) => {
                   
                    {/* Pin Node (Fixed on Line) */}
                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-                      <div className={`w-4 h-4 rounded-full border-2 border-[var(--theme-border)] shadow-[2px_2px_0px_var(--theme-border)] relative transform hover:scale-110 transition-transform
-                            ${isFuture ? 'bg-white' : 'bg-[var(--theme-primary)]'}
-                      `}>
+                      <div className="w-4 h-4 rounded-full border-2 border-[var(--theme-border)] shadow-[2px_2px_0px_var(--theme-border)] relative transform hover:scale-110 transition-transform bg-[var(--theme-primary)]">
                           {/* Pin Highlight */}
                           <div className="absolute top-0.5 left-0.5 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
                           {/* Pin Center */}
@@ -133,7 +125,7 @@ const Timeline: React.FC<TimelineProps> = ({ events }) => {
                       `}
                       style={{
                         animation: `float-${index} 3s ease-in-out infinite`,
-                        animationDelay: animationDelay,
+                        animationDelay: `${2.5 + index * 0.2}s`, // Start floating AFTER entrance
                       }}
                    >
                       <div 
@@ -159,7 +151,6 @@ const Timeline: React.FC<TimelineProps> = ({ events }) => {
                           </div>         <h4 className="font-bold text-xs text-[var(--theme-border)] leading-tight">
                              {event.title}
                           </h4>
-                          {/* Tooltip-like description on hover could go here, or just keep it simple as per snippet style */}
                       </div>
                    </div>
                </div>
@@ -168,24 +159,6 @@ const Timeline: React.FC<TimelineProps> = ({ events }) => {
           );
         })}
       </div>
-      
-      {/* Dynamic Styles for Floating Animation */}
-      <style>{`
-        ${events.map((_, index) => {
-          // Subtle random rotation bobbing
-          const baseRotation = (index % 2 === 0 ? 1 : -1) * (1 + index % 3);
-          return `
-            @keyframes float-${index} {
-              0%, 100% {
-                transform: translateY(0px);
-              }
-              50% {
-                transform: translateY(-6px);
-              }
-            }
-          `;
-        }).join('')}
-      `}</style>
     </div>
   );
 };
