@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Newspaper, Calendar, Hash, Video, Info, Settings, Menu, Star } from 'lucide-react';
 import { AppTheme, NewsItem } from './types';
-import { MOCK_NEWS, TIMELINE_DATA } from './constants';
+import { MOCK_NEWS, TIMELINE_DATA, HISTORY_DATA } from './constants';
 import RetroCard from './components/RetroCard';
 import EventGallery from './components/EventGallery';
 import ChatAssistant from './components/ChatAssistant';
@@ -37,8 +37,14 @@ const App: React.FC = () => {
       <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-12 py-8">
 
         {/* Header Section */}
+<<<<<<< HEAD
         <header className="mb-12 flex flex-col gap-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+=======
+        <header className="mb-12 flex flex-col gap-12">
+          {/* Top Row: Logo & Controls */}
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8 w-full">
+>>>>>>> main
           
           {/* Logo / Brand Section - Redesigned */}
           <div className="group cursor-default flex items-center gap-5 transform -rotate-2 hover:rotate-0 transition-transform duration-300 origin-left">
@@ -133,11 +139,15 @@ const App: React.FC = () => {
             </button>
           </div>
           </div>
+<<<<<<< HEAD
           
           {/* Timeline Section - Below Logo */}
           <div className="w-full">
             <Timeline />
           </div>
+=======
+          <Timeline events={TIMELINE_DATA} />
+>>>>>>> main
         </header>
 
         {/* Main Content Area */}
@@ -150,7 +160,7 @@ const App: React.FC = () => {
                         <RetroCard title="大事记" subtitle="历史" variant="ticket">
                             <ul className="space-y-6 relative">
                                 <div className="absolute left-[11px] top-2 bottom-2 w-0.5 bg-[var(--theme-primary)] border-l-2 border-dashed border-[var(--theme-primary)] opacity-30"></div>
-                                {TIMELINE_DATA.map((item, idx) => (
+                                {HISTORY_DATA.map((item, idx) => (
                                     <li key={idx} className="relative pl-8 group">
                                         <div className="absolute left-0 top-1 w-6 h-6 rounded-full bg-[var(--theme-secondary)] border-4 border-[var(--theme-primary)] z-10 group-hover:scale-110 transition-transform"></div>
                                         <div className="bg-[var(--theme-secondary)]/50 p-3 rounded border-2 border-[var(--theme-border)] hover:bg-[var(--theme-secondary)] transition-all hover:shadow-[3px_3px_0px_rgba(0,0,0,0.1)] hover:-translate-y-0.5">
@@ -243,8 +253,8 @@ const App: React.FC = () => {
              <div className="w-12 border-b-2 border-dashed border-[var(--theme-accent)] h-0"></div>
              <Hash size={16} />
           </div>
-          <p className="font-retro text-2xl tracking-widest text-[var(--theme-primary)] drop-shadow-[1px_1px_0px_var(--theme-border)]">IGNOREDONE <span className="text-xs align-middle mx-1">X</span> 檐枫</p>
-          <p className="text-xs mt-3 font-mono font-bold uppercase">© 2024 YANFENG Anime Club. All rights reserved.</p>
+          <p className="font-retro text-2xl tracking-widest text-[var(--theme-primary)] drop-shadow-[1px_1px_0px_var(--theme-border)]">Design by 檐枫技术组</p>
+          <p className="text-xs mt-3 font-mono font-bold uppercase">© YANFENG ACGN Fan CLUB. All rights reserved.</p>
         </footer>
 
         {/* Chat Assistant */}
