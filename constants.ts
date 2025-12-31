@@ -149,7 +149,7 @@ export const MOCK_NEWS: NewsItem[] = [
 ];
 
 export const HISTORY_DATA: HistoryEvent[] = [
-  { year: '2010', title: '社团成立', description: '几位热爱动漫的学长学姐在旧活动室创立了檐枫。' },
+  { year: '2004', title: '社团成立', description: '几位热爱动漫的学长学姐在旧活动室创立了檐枫。' },
   { year: '2012', title: '社刊创刊', description: '首期《檐艺》正式发行，收录社员原创图文作品。' },
   { year: '2015', title: '首届GMA', description: '确立了年度颁奖典礼的传统，标志着社团正规化。' },
   { year: '2019', title: '全省高校金奖', description: '《代号：枫》舞台剧荣获全省高校动漫联展金奖。' },

@@ -6,6 +6,24 @@ interface TimelineProps {
 }
 
 const Timeline: React.FC<TimelineProps> = ({ events }) => {
+
+  // Logic to determine active event based on current month
+  const getActiveEventIndex = () => {
+    const currentMonth = new Date().getMonth() + 1;
+    // 9, 10 matches '10月' (Index 0 in default data, but better search by text)
+    if (currentMonth === 9 || currentMonth === 10) return events.findIndex(e => e.month.includes('10'));
+    // 11, 12 matches '12月'
+    if (currentMonth === 11 || currentMonth === 12) return events.findIndex(e => e.month.includes('12'));
+    // 1, 2 matches '2月'
+    if (currentMonth === 1 || currentMonth === 2) return events.findIndex(e => e.month.includes('2'));
+    // 4, 5 matches '5月'
+    if (currentMonth === 4 || currentMonth === 5) return events.findIndex(e => e.month.includes('5'));
+    
+    return -1;
+  };
+
+  const activeIndex = getActiveEventIndex();
+
   return (
     <div className="relative w-full py-12 md:py-24 px-4">
       {/* 
@@ -27,6 +45,14 @@ const Timeline: React.FC<TimelineProps> = ({ events }) => {
         @keyframes appearArrow {
           0% { opacity: 0; transform: translate(-10px, -50%); }
           100% { opacity: 0.8; transform: translate(0, -50%); }
+        }
+        @keyframes pulse-glow {
+          0%, 100% { box-shadow: 0 0 0 0px rgba(231, 76, 60, 0.6); }
+          50% { box-shadow: 0 0 0 6px rgba(231, 76, 60, 0.2), 0 0 20px 5px rgba(231, 76, 60, 0.5); }
+        }
+        @keyframes twinkle-float {
+          0%, 100% { opacity: 0; transform: translateY(0) scale(0.5); }
+          50% { opacity: 1; transform: translateY(-10px) scale(1.2); }
         }
         ${events.map((_, index) => {
           // Keep the existing floating animation
@@ -72,6 +98,8 @@ const Timeline: React.FC<TimelineProps> = ({ events }) => {
           // Event 0 starts quickly, Event N starts near end of line animation.
           const staggerDelay = `${0.2 + (index * 0.25)}s`;
 
+          const isActive = index === activeIndex;
+
           return (
             <div 
                 key={index} 
@@ -87,15 +115,26 @@ const Timeline: React.FC<TimelineProps> = ({ events }) => {
                   <div className="relative flex flex-col items-center">
                      <div className="absolute top-0 bottom-[-32px] w-0.5 border-l-2 border-dashed border-[var(--theme-primary)] opacity-50 z-0 group-last:bottom-auto group-last:h-full"></div>
                      {/* Mobile Pin */}
-                     <div className="w-4 h-4 rounded-full border-2 border-[var(--theme-border)] shadow-[2px_2px_0px_var(--theme-border)] z-10 shrink-0 relative bg-[var(--theme-primary)]">
+                     <div className={`w-4 h-4 rounded-full border-2 border-[var(--theme-border)] shadow-[2px_2px_0px_var(--theme-border)] z-10 shrink-0 relative bg-[var(--theme-primary)]
+                        ${isActive ? 'scale-125 bg-[var(--theme-accent)] ring-4 ring-[var(--theme-accent)]/20' : ''}
+                     `}>
                         <div className="absolute top-0.5 left-0.5 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
                         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1 h-1 bg-[var(--theme-border)] rounded-full"></div>
                      </div>
                   </div>
                   <div className="flex-1 pb-6">
-                      <div className="bg-[var(--theme-secondary)] p-3 rounded border-2 border-[var(--theme-border)] shadow-[3px_3px_0px_var(--theme-border)] transform -rotate-1">
-                          <span className="font-bold text-xs text-[var(--theme-primary)] block mb-1">{event.month}</span>
-                          <h4 className="font-bold text-base text-[var(--theme-border)]">{event.title}</h4>
+                      <div className={`
+                        p-3 rounded border-2 transform -rotate-1 transition-all
+                        ${isActive 
+                            ? 'bg-[var(--theme-accent)] border-[var(--theme-border)] shadow-[4px_4px_0px_var(--theme-border)] scale-105' 
+                            : 'bg-[var(--theme-secondary)] border-[var(--theme-border)] shadow-[3px_3px_0px_var(--theme-border)]'}
+                      `}>
+                          <span className={`font-bold text-xs block mb-1 ${isActive ? 'text-[var(--theme-secondary)]' : 'text-[var(--theme-primary)]'}`}>
+                              {event.month} {isActive && <span className="ml-1 px-1 bg-white/20 rounded">NOW</span>}
+                          </span>
+                          <h4 className={`font-bold text-base ${isActive ? 'text-white' : 'text-[var(--theme-border)]'}`}>
+                              {event.title}
+                          </h4>
                       </div>
                   </div>
                </div>
@@ -105,23 +144,58 @@ const Timeline: React.FC<TimelineProps> = ({ events }) => {
                   
                    {/* Pin Node (Fixed on Line) */}
                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-                      <div className="w-4 h-4 rounded-full border-2 border-[var(--theme-border)] shadow-[2px_2px_0px_var(--theme-border)] relative transform hover:scale-110 transition-transform bg-[var(--theme-primary)]">
-                          {/* Pin Highlight */}
-                          <div className="absolute top-0.5 left-0.5 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
-                          {/* Pin Center */}
-                          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1 h-1 bg-[var(--theme-border)] rounded-full"></div>
+                      {/* Floating Particles (Stars) - Only for Active */}
+                      {isActive && (
+                        <div className="absolute inset-0 pointer-events-none overflow-visible">
+                            {[...Array(5)].map((_, i) => (
+                                <div 
+                                    key={i}
+                                    className="absolute w-2 h-2 text-[#f1c40f]"
+                                    style={{
+                                        top: `${Math.random() * 40 - 20}px`,
+                                        left: `${Math.random() * 40 - 20}px`,
+                                        animation: `twinkle-float ${1.5 + Math.random()}s ease-in-out infinite`,
+                                        animationDelay: `${Math.random()}s`
+                                    }}
+                                >
+                                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full drop-shadow-sm">
+                                        <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
+                                    </svg>
+                                </div>
+                            ))}
+                        </div>
+                      )}
+                      
+                      <div className={`
+                        relative transition-transform duration-500
+                        ${isActive ? 'scale-[1.5] z-30' : 'w-4 h-4 hover:scale-110'}
+                      `}>
+                          <div className={`
+                             w-full h-full rounded-full border-2 border-[var(--theme-border)] shadow-[2px_2px_0px_var(--theme-border)] relative flex items-center justify-center
+                             ${isActive ? 'w-6 h-6 bg-[#e74c3c] animate-[pulse-glow_2s_infinite]' : 'bg-[var(--theme-primary)]'}
+                          `}>
+                              {/* Pin Highlight */}
+                              <div className="absolute top-0.5 left-0.5 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
+                              {/* Pin Center: Force white for active to look like a target */}
+                              <div className={`
+                                  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full
+                                  ${isActive ? 'w-2 h-2 bg-white' : 'w-1 h-1 bg-[var(--theme-border)]'}
+                              `}></div>
+                          </div>
                       </div>
                    </div>
 
                    {/* Connector Line (Vertical) */}
-                   <div className={`absolute left-1/2 -translate-x-1/2 w-0.5 bg-[var(--theme-primary)] z-0 
+                   <div className={`absolute left-1/2 -translate-x-1/2 w-0.5 z-0 
                         ${isTop ? 'bottom-1/2 mb-2 h-10' : 'top-1/2 mt-2 h-10'}
+                        ${isActive ? 'bg-[#e74c3c] h-12 w-1' : 'bg-[var(--theme-primary)]'}
                    `}></div>
 
                    {/* Floating Card Container */}
                    <div 
                       className={`flex w-full justify-center absolute left-0 right-0 z-30
                         ${isTop ? 'bottom-[calc(50%+40px)]' : 'top-[calc(50%+40px)]'}
+                        ${isActive ? (isTop ? 'bottom-[calc(50%+50px)]' : 'top-[calc(50%+50px)]') : ''} 
                       `}
                       style={{
                         animation: `float-${index} 3s ease-in-out infinite`,
@@ -129,26 +203,32 @@ const Timeline: React.FC<TimelineProps> = ({ events }) => {
                       }}
                    >
                       <div 
-                          className="relative p-3 bg-[var(--theme-secondary)] border-2 border-[var(--theme-border)] shadow-[3px_3px_0px_var(--theme-border)] min-w-[100px] max-w-[160px] text-center transition-all hover:-translate-y-1 hover:shadow-[4px_4px_0px_var(--theme-border)] cursor-default"
+                          className={`
+                            relative p-3 border-2 min-w-[100px] max-w-[160px] text-center transition-all cursor-default
+                            ${isActive 
+                                ? 'bg-[#e74c3c] border-[var(--theme-border)] shadow-[6px_6px_0px_var(--theme-border)] scale-110' 
+                                : 'bg-[var(--theme-secondary)] border-[var(--theme-border)] shadow-[3px_3px_0px_var(--theme-border)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_var(--theme-border)]'}
+                          `}
                           style={{ transform: `rotate(${rotationStr})` }}
                       >
                           {/* Triangle Pointer */}
                           {isTop ? (
                               <>
-                                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-[var(--theme-secondary)] z-10" />
+                                <div className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] z-10 ${isActive ? 'border-t-[#e74c3c]' : 'border-t-[var(--theme-secondary)]'}`} />
                                 <div className="absolute -bottom-[10px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[10px] border-t-[var(--theme-border)] -z-0" />
                               </>
                           ) : (
                               <>
-                                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[8px] border-b-[var(--theme-secondary)] z-10" />
+                                <div className={`absolute -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[8px] z-10 ${isActive ? 'border-b-[#e74c3c]' : 'border-b-[var(--theme-secondary)]'}`} />
                                 <div className="absolute -top-[10px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-[var(--theme-border)] -z-0" />
                               </>
                           )}
                           
                           {/* Content */}
-                          <div className="font-bold text-base text-[var(--theme-primary)] mb-1 leading-none">
+                          <div className={`font-bold text-base mb-1 leading-none ${isActive ? 'text-[var(--theme-secondary)]' : 'text-[var(--theme-primary)]'}`}>
                              {event.month}
-                          </div>         <h4 className="font-bold text-xs text-[var(--theme-border)] leading-tight">
+                          </div>
+                          <h4 className={`font-bold text-xs leading-tight ${isActive ? 'text-white' : 'text-[var(--theme-border)]'}`}>
                              {event.title}
                           </h4>
                       </div>

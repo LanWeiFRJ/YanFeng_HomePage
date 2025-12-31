@@ -13,7 +13,15 @@ import { WECHAT_ARTICLES } from './constants';
 import logo from './assets/logo.svg';
 
 const App: React.FC = () => {
-  const [theme, setTheme] = useState<AppTheme>(AppTheme.DEFAULT);
+  const [theme, setTheme] = useState<AppTheme>(() => {
+    const month = new Date().getMonth() + 1;
+    // 9-11月: 冬日祭 (Winter)
+    if (month >= 9 && month <= 12) return AppTheme.WINTER;
+    // 12-2月: GMA金枫叶 (GMA)
+    if (month === 1 || month <= 2) return AppTheme.GMA;
+    // 其他: 常规
+    return AppTheme.DEFAULT;
+  });
   const [news, setNews] = useState<NewsItem[]>(MOCK_NEWS);
   const [activeTab, setActiveTab] = useState<'home' | 'events'>('home');
 
@@ -138,7 +146,7 @@ const App: React.FC = () => {
             </button>
           </div>
           </div>
-          <Timeline events={TIMELINE_DATA} />
+          {activeTab === 'home' && <Timeline events={TIMELINE_DATA} />}
         </header>
 
         {/* Main Content Area */}

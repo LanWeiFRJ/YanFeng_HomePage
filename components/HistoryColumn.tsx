@@ -30,12 +30,13 @@ const HistoryColumn: React.FC<HistoryColumnProps> = ({ data }) => {
               </h4>
           </div>
 
-          {/* Content List */}
-          <div className="p-4 bg-[var(--theme-secondary)] relative flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar">
-               {/* Internal Dashed Border */}
-               <div className="absolute inset-2 border-2 border-dashed border-[var(--theme-primary)]/30 pointer-events-none rounded"></div>
+          {/* Content List Wrapper */}
+          <div className="bg-[var(--theme-secondary)] relative flex-1 min-h-0">
+               {/* Internal Dashed Border (Static Frame) */}
+               <div className="absolute inset-2 border-2 border-dashed border-[var(--theme-primary)]/30 pointer-events-none rounded z-20"></div>
                
-               <div className="relative z-10 px-2 py-2">
+               {/* Scrollable Content Area */}
+               <div className="absolute inset-3 overflow-y-auto overflow-x-hidden custom-scrollbar p-3 z-10">
                    <ul className="space-y-6 relative">
                      {/* Vertical Line */}
                      <div className="absolute left-[11px] top-2 bottom-2 w-0.5 bg-[var(--theme-primary)] border-l-2 border-dashed border-[var(--theme-primary)] opacity-30"></div>
