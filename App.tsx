@@ -8,7 +8,7 @@ import ChatAssistant from './components/ChatAssistant';
 import Timeline from './components/Timeline';
 import HistoryColumn from './components/HistoryColumn';
 import WeChatNewsColumn from './components/WeChatNewsColumn';
-import FileColumn from './components/fileColumn';
+import FileColumn from './components/FileColumn';
 import { WECHAT_ARTICLES } from './constants';
 import logo from './assets/logo.svg';
 
