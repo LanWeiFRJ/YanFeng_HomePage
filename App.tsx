@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Newspaper, Calendar, Hash, Video, Info, Settings, Menu, Star } from 'lucide-react';
+import { Hash, Video, Settings, Menu, Star } from 'lucide-react';
 import { AppTheme, NewsItem } from './types';
 import { MOCK_NEWS, TIMELINE_DATA, HISTORY_DATA } from './constants';
-import RetroCard from './components/RetroCard';
+
 import EventGallery from './components/EventGallery';
 import ChatAssistant from './components/ChatAssistant';
 import Timeline from './components/Timeline';
+import HistoryColumn from './components/HistoryColumn';
+import WeChatNewsColumn from './components/WeChatNewsColumn';
+import FileColumn from './components/fileColumn';
+import { WECHAT_ARTICLES } from './constants';
 import logo from './assets/logo.svg';
 
 const App: React.FC = () => {
@@ -140,92 +144,24 @@ const App: React.FC = () => {
         {/* Main Content Area */}
         <main>
             {activeTab === 'home' ? (
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-10 gap-8">
                     
-                    {/* LEFT COLUMN: Timeline & About (4/12) */}
-                    <div className="lg:col-span-5 space-y-8">
-                        <RetroCard title="大事记" subtitle="历史" variant="ticket">
-                            <ul className="space-y-6 relative">
-                                <div className="absolute left-[11px] top-2 bottom-2 w-0.5 bg-[var(--theme-primary)] border-l-2 border-dashed border-[var(--theme-primary)] opacity-30"></div>
-                                {HISTORY_DATA.map((item, idx) => (
-                                    <li key={idx} className="relative pl-8 group">
-                                        <div className="absolute left-0 top-1 w-6 h-6 rounded-full bg-[var(--theme-secondary)] border-4 border-[var(--theme-primary)] z-10 group-hover:scale-110 transition-transform"></div>
-                                        <div className="bg-[var(--theme-secondary)]/50 p-3 rounded border-2 border-[var(--theme-border)] hover:bg-[var(--theme-secondary)] transition-all hover:shadow-[3px_3px_0px_rgba(0,0,0,0.1)] hover:-translate-y-0.5">
-                                            <span className="font-retro text-xl text-[var(--theme-primary)]">{item.year}</span>
-                                            <h4 className="font-bold text-lg">{item.title}</h4>
-                                            <p className="text-sm text-gray-600 mt-1 leading-relaxed">{item.description}</p>
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        </RetroCard>
-
-                        <div className="bg-[var(--theme-accent)] text-[var(--theme-secondary)] p-6 rounded-lg border-4 border-[var(--theme-border)] shadow-[6px_6px_0px_var(--theme-border)] transform rotate-1 hover:rotate-0 transition-transform duration-300">
-                            <h3 className="text-2xl font-retro mb-4 border-b-2 border-dashed border-white/30 pb-2 flex items-center gap-2">
-                                <Settings size={24} className="animate-spin-slow" />
-                                关于风格
-                            </h3>
-                            <ul className="space-y-3 text-sm">
-                                <li className="flex items-center gap-2 opacity-90 hover:opacity-100"><div className="w-1.5 h-1.5 bg-white rounded-full"></div> 传统美式复古元素特征</li>
-                                <li className="flex items-center gap-2 opacity-90 hover:opacity-100"><div className="w-1.5 h-1.5 bg-white rounded-full"></div> 檐枫独家配色方案</li>
-                                <li className="flex items-center gap-2 opacity-90 hover:opacity-100"><div className="w-1.5 h-1.5 bg-white rounded-full"></div> 火山旅梦活动的风格参考</li>
-                            </ul>
-                        </div>
+                    {/* LEFT COLUMN: History (20%) */}
+                    <div className="lg:col-span-2 space-y-8">
+                        <HistoryColumn data={HISTORY_DATA} />
                     </div>
 
-                    {/* RIGHT COLUMN: News & Feed (8/12) */}
-                    <div className="lg:col-span-7 space-y-8">
-                        <div className="bg-[var(--theme-secondary)] border-y-4 border-[var(--theme-border)] py-4 text-center relative overflow-hidden">
-                            <div className="absolute top-0 left-0 w-full h-1 bg-checker-pattern opacity-10"></div>
-                            <div className="absolute bottom-0 left-0 w-full h-1 bg-checker-pattern opacity-10"></div>
-                            <h2 className="text-3xl font-retro text-[var(--theme-border)] uppercase tracking-widest flex items-center justify-center gap-4">
-                                <span className="text-[var(--theme-primary)] hidden md:inline">★</span> 
-                                资讯菜单 
-                                <span className="text-[var(--theme-primary)] hidden md:inline">★</span>
-                            </h2>
-                            <p className="text-[var(--theme-primary)] text-xs font-bold mt-1 tracking-[0.5em] uppercase opacity-70">Latest News & Updates</p>
-                        </div>
+                    {/* MIDDLE COLUMN: WeChat News (50%) */}
+                    <div className="lg:col-span-5 space-y-8">
+                        <WeChatNewsColumn news={WECHAT_ARTICLES} />
+                    </div>
 
-                        <div className="grid gap-6">
-                            {news.map((item) => (
-                                <RetroCard key={item.id} variant="ticket" className="transform transition-all hover:-translate-y-1 hover:shadow-lg">
-                                    <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center mb-2">
-                                        <div className="flex items-center gap-2">
-                                            {item.source === 'WeChat' ? <Newspaper size={18} className="text-green-600"/> : <Info size={18} className="text-blue-600"/>}
-                                            <span className="font-bold text-xs px-2 py-0.5 border border-[var(--theme-border)] rounded-full uppercase bg-[var(--theme-secondary)]">
-                                                {item.tag}
-                                            </span>
-                                            <span className="text-xs font-mono text-gray-500 flex items-center gap-1">
-                                                <Calendar size={12} /> {item.date}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <h3 className="text-xl font-bold mb-2 text-[var(--theme-darkRed)] hover:text-[var(--theme-primary)] transition-colors cursor-pointer leading-snug">
-                                        {item.title}
-                                    </h3>
-                                    <p className="text-sm text-[var(--theme-brown)] leading-relaxed border-t border-dashed border-[var(--theme-border)] pt-2 mt-2">
-                                        {item.summary}
-                                    </p>
-                                    <div className="mt-3 flex justify-end">
-                                        <a href={item.link} className="text-xs font-bold uppercase tracking-widest text-[var(--theme-primary)] hover:bg-[var(--theme-primary)] hover:text-white px-3 py-1 border border-transparent hover:border-[var(--theme-border)] rounded transition-all">
-                                            阅读更多 &gt;&gt;
-                                        </a>
-                                    </div>
-                                </RetroCard>
-                            ))}
-                        </div>
-
-                        {/* Special Feature Box */}
-                        <div className="p-6 bg-[var(--theme-primary)] border-4 border-[var(--theme-border)] rounded-xl text-white shadow-[8px_8px_0px_rgba(0,0,0,0.2)] relative overflow-hidden group">
-                            <div className="absolute -right-6 -top-6 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-all"></div>
-                            <h3 className="text-2xl font-bold font-retro mb-2 relative z-10 flex items-center gap-2">
-                                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse shadow-[0_0_10px_rgba(74,222,128,0.8)]"></div>
-                                公众号自动同步中...
-                            </h3>
-                            <p className="opacity-90 text-sm relative z-10 leading-relaxed max-w-lg">我们的小爬虫正在努力搬运最新的活动预告和返图，数据来源：WeChat Official Account。</p>
-                        </div>
+                    {/* RIGHT COLUMN: Notices / About (30%) */}
+                    <div className="lg:col-span-3 space-y-8">
+                        <FileColumn notices={MOCK_NEWS} />
                     </div>
                 </div>
+
             ) : (
                 <EventGallery currentTheme={theme} />
             )}

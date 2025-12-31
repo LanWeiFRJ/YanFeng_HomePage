@@ -13,6 +13,7 @@ export interface NewsItem {
   tag: string;
   source: 'WeChat' | 'System';
   link?: string;
+  coverUrl?: string;
 }
 
 export interface TimelineEvent {
