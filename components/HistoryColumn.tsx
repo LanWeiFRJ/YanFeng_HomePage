@@ -33,7 +33,7 @@ const HistoryColumn: React.FC<HistoryColumnProps> = ({ data }) => {
           {/* Content List Wrapper */}
           <div className="bg-[var(--theme-secondary)] relative flex-1 min-h-0">
                {/* Internal Dashed Border (Static Frame) */}
-               <div className="absolute inset-2 border-2 border-dashed border-[var(--theme-primary)]/30 pointer-events-none rounded z-20"></div>
+               <div className="absolute inset-2 border-2 border-dashed border-[var(--theme-primary)] pointer-events-none rounded z-20"></div>
                
                {/* Scrollable Content Area */}
                <div className="absolute inset-3 overflow-y-auto overflow-x-hidden custom-scrollbar p-3 z-10">

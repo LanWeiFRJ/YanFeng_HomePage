@@ -10,8 +10,7 @@ export interface NewsItem {
   title: string;
   date: string;
   summary: string;
-  tag: string;
-  source: 'WeChat' | 'System';
+  tag?: string;
   link?: string;
   coverUrl?: string;
 }

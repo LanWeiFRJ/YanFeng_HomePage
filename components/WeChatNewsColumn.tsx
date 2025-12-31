@@ -31,17 +31,7 @@ const WeChatNewsColumn: React.FC<WeChatNewsColumnProps> = ({ news }) => {
                     <div className="flex flex-col h-full">
                         {/* Metadata Header */}
                         <div className="flex items-center gap-3 mb-3">
-                            {item.source === 'WeChat' ? 
-                               <Newspaper size={20} className="text-[var(--theme-primary)]"/> : 
-                               <Info size={20} className="text-blue-500"/>
-                            }
-                            <span className={`font-bold text-xs px-2.5 py-0.5 border border-[var(--theme-border)] rounded-full text-[var(--theme-border)]
-                                ${item.tag === '招新' ? 'bg-white' : 
-                                  item.tag === '回顾' ? 'bg-white' : 
-                                  'bg-white'}
-                            `}>
-                                {item.tag}
-                            </span>
+                            <Newspaper size={20} className="text-[var(--theme-primary)]"/>
                             <span className="text-xs font-mono text-[var(--theme-brown)] opacity-70 flex items-center gap-1">
                                 <Calendar size={12} /> {item.date}
                             </span>
@@ -65,7 +55,7 @@ const WeChatNewsColumn: React.FC<WeChatNewsColumnProps> = ({ news }) => {
                         )}
 
                         {/* Dashed Separator */}
-                        <div className="w-full border-t-2 border-dashed border-[var(--theme-border)]/30 my-2"></div>
+                        <div className="w-full border-t-2 border-dashed border-[var(--theme-primary)] my-2"></div>
 
                         {/* Summary */}
                         <p className="text-sm text-[var(--theme-brown)] mt-2 mb-4 leading-relaxed opacity-90 line-clamp-3">

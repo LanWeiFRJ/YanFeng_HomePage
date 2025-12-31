@@ -35,7 +35,7 @@ const FileColumn: React.FC<FileColumnProps> = ({ notices }) => {
             {/* Content List Wrapper */}
             <div className="bg-[var(--theme-secondary)] relative flex-1 min-h-0">
                  {/* Internal Dashed Border (Static Frame) */}
-                 <div className="absolute inset-2 border-2 border-dashed border-[var(--theme-primary)]/30 pointer-events-none rounded z-20"></div>
+                 <div className="absolute inset-2 border-2 border-dashed border-[var(--theme-primary)] pointer-events-none rounded z-20"></div>
                  
                  {/* Scrollable Content Area 
                      Changed from inset-0 to inset-3 (12px) to ensure it sits INSIDE the inset-2 (8px) border.
@@ -47,16 +47,18 @@ const FileColumn: React.FC<FileColumnProps> = ({ notices }) => {
                           <p className="text-sm text-gray-500 text-center py-4">暂无信息</p>
                         ) : (
                           notices.map((notice) => (
-                            <div key={notice.id} className="group/item pb-3 border-b border-dashed border-[var(--theme-red)]/20 last:border-0 last:pb-0">
+                            <div key={notice.id} className="group/item pb-3 border-b border-dashed border-[var(--theme-primary)] last:border-0 last:pb-0">
                                <div className="flex items-center gap-2 mb-1.5">
-                                    <span className={`text-[10px] font-bold text-white px-1.5 py-0.5 rounded shadow-sm
-                                       ${notice.tag === '招新' ? 'bg-[#c0392b]' : 
-                                         notice.tag === '回顾' ? 'bg-[#e67e22]' : 
-                                         notice.tag === '通知' ? 'bg-[#d35400]' : 
-                                         'bg-[var(--theme-primary)]'}
-                                    `}>
-                                      {notice.tag}
-                                    </span>
+                                    {notice.tag && (
+                                      <span className={`text-[10px] font-bold text-white px-1.5 py-0.5 rounded shadow-sm
+                                        ${notice.tag === '招新' ? 'bg-[#c0392b]' : 
+                                          notice.tag === '回顾' ? 'bg-[#e67e22]' : 
+                                          notice.tag === '通知' ? 'bg-[#d35400]' : 
+                                          'bg-[var(--theme-primary)]'}
+                                      `}>
+                                        {notice.tag}
+                                      </span>
+                                    )}
                                     <span className="text-xs text-[var(--theme-brown)]/70 font-mono tracking-tight">{notice.date}</span>
                                </div>
                                <h4 className="font-bold text-[15px] leading-snug text-[var(--theme-border)] group-hover/item:text-[var(--theme-primary)] transition-colors cursor-pointer">

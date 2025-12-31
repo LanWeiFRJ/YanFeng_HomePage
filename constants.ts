@@ -27,8 +27,8 @@ export const WECHAT_ARTICLES: NewsItem[] = [
     title: '【招新】2024秋季招新正式启动！',
     date: '2024-09-01',
     summary: '加入我们，一起在这个秋天燃烧中二之魂！五大部门等你来挑战。',
-    tag: '招新',
-    source: 'WeChat',
+    // tag removed
+    // source removed
     link: '#',
     coverUrl: 'https://picsum.photos/seed/yanfeng1/400/200'
   },
@@ -37,8 +37,9 @@ export const WECHAT_ARTICLES: NewsItem[] = [
     title: '【活动回顾】第14届夏日祭圆满落幕',
     date: '2024-07-15',
     summary: '感谢所有staff的辛勤付出，本次活动参与人数创历史新高！现场返图已上传。',
-    tag: '回顾',
-    source: 'WeChat',
+    // tag removed
+    // tag removed
+    // source removed
     link: '#',
     coverUrl: 'https://picsum.photos/seed/yanfeng2/400/200'
   },
@@ -47,8 +48,9 @@ export const WECHAT_ARTICLES: NewsItem[] = [
     title: '【GMA前瞻】入围名单大公开！',
     date: '2024-10-25',
     summary: '究竟花落谁家？年度最佳Cosplay奖项竞争激烈。',
-    tag: 'GMA',
-    source: 'WeChat',
+    // tag removed
+    // tag removed
+    // source removed
     link: '#',
     coverUrl: 'https://picsum.photos/seed/yanfeng3/400/200'
   },
@@ -57,8 +59,9 @@ export const WECHAT_ARTICLES: NewsItem[] = [
     title: '【通知】关于本周五例行活动的调整通知',
     date: '2024-10-20',
     summary: '由于场地原因，原定于活动中心的例会改至3号教学楼201教室。',
-    tag: '通知',
-    source: 'WeChat',
+    // tag removed
+    // tag removed
+    // source removed
     link: '#'
   }
 ];
@@ -70,7 +73,6 @@ export const MOCK_NEWS: NewsItem[] = [
     date: '2024-12-01',
     summary: '记录了这一年所有的美好回忆，点击下载PDF版本。',
     tag: '年鉴',
-    source: 'System',
     link: '#'
   },
   {
@@ -79,7 +81,6 @@ export const MOCK_NEWS: NewsItem[] = [
     date: '2024-09-10',
     summary: '社团官方Logo资源，包含AI、PNG格式，供宣传制作使用。',
     tag: '资源',
-    source: 'System',
     link: '#'
   },
   {
@@ -88,7 +89,6 @@ export const MOCK_NEWS: NewsItem[] = [
     date: '2024-03-01',
     summary: '更新后的大学生活动中心场地申请流程，各部门请仔细阅读。',
     tag: '文档',
-    source: 'System',
     link: '#'
   },
   {
@@ -97,7 +97,6 @@ export const MOCK_NEWS: NewsItem[] = [
     date: '2024-02-15',
     summary: '檐枫动漫社最新版章程，包含会员权利与义务说明。',
     tag: '文档',
-    source: 'System',
     link: '#'
   },
   {
@@ -106,7 +105,6 @@ export const MOCK_NEWS: NewsItem[] = [
     date: '2024-01-10',
     summary: '各部门举办活动需填写的报销表格，下载后打印使用。',
     tag: '表格',
-    source: 'System',
     link: '#'
   },
   {
@@ -115,7 +113,6 @@ export const MOCK_NEWS: NewsItem[] = [
     date: '2024-10-01',
     summary: '第十届金枫叶奖参赛报名专用表格。',
     tag: '报名',
-    source: 'System',
     link: '#'
   },
   {
@@ -124,7 +121,6 @@ export const MOCK_NEWS: NewsItem[] = [
     date: '2023-12-05',
     summary: '关于摄影器材、音响设备借用的具体规定及赔偿标准。',
     tag: '规定',
-    source: 'System',
     link: '#'
   },
 
@@ -134,7 +130,6 @@ export const MOCK_NEWS: NewsItem[] = [
     date: '2024-03-05',
     summary: '新学期活动室值班安排，请各位干事准时到岗。',
     tag: '公示',
-    source: 'System',
     link: '#'
   },
   {
@@ -143,7 +138,6 @@ export const MOCK_NEWS: NewsItem[] = [
     date: '2023-11-20',
     summary: '保持环境整洁，爱护公物，人人有责。',
     tag: '规定',
-    source: 'System',
     link: '#'
   }
 ];
