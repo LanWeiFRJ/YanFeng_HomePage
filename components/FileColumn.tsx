@@ -84,7 +84,7 @@ const FileColumn: React.FC<FileColumnProps> = ({ notices }) => {
           </h3>
           <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2 opacity-90 hover:opacity-100"><div className="w-1.5 h-1.5 bg-white rounded-full"></div> 传统美式复古元素特征</li>
-              <li className="flex items-center gap-2 opacity-90 hover:opacity-100"><div className="w-1.5 h-1.5 bg-white rounded-full"></div> 檐枫独家配色方案</li>
+              <li className="flex items-center gap-2 opacity-90 hover:opacity-100"><div className="w-1.5 h-1.5 bg-white rounded-full"></div> 檐枫自适应主题配色方案</li>
               <li className="flex items-center gap-2 opacity-90 hover:opacity-100"><div className="w-1.5 h-1.5 bg-white rounded-full"></div> 火山旅梦活动的风格参考</li>
           </ul>
       </div>

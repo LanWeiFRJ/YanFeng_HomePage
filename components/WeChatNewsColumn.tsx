@@ -91,7 +91,7 @@ const WeChatNewsColumn: React.FC<WeChatNewsColumnProps> = ({ news }) => {
               <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse shadow-[0_0_10px_rgba(74,222,128,0.8)]"></div>
               公众号同步中...
           </h3>
-          <p className="opacity-90 text-sm relative z-10 leading-relaxed max-w-lg">我们的小爬虫正在努力搬运最新的活动预告和返图，数据来源：WeChat Official Account。</p>
+          <p className="opacity-90 text-sm relative z-10 leading-relaxed max-w-lg">我们的小爬虫正在努力搬运最新的活动预告和推文，数据来源：涧桐现视研。</p>
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ import { ChatMessage } from '../types';
 const ChatAssistant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { id: '0', role: 'model', text: '你好呀！我是檐枫动漫社的小助手“枫糖”，想知道什么都可以问我哦！' }
+    { id: '0', role: 'model', text: '你好呀！我是檐枫动漫社的社娘檐枫娘，想知道什么都可以问我哦！' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
