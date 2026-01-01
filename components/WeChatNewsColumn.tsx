@@ -50,7 +50,9 @@ const WeChatNewsColumn: React.FC<WeChatNewsColumnProps> = ({ news }) => {
                               src={item.coverUrl || '/default_cover.png'} 
                               alt={item.title} 
                               onError={(e) => {
-                                (e.target as HTMLImageElement).src = '/default_cover.png';
+                                const target = e.target as HTMLImageElement;
+                                target.onerror = null; // Prevent infinite loop
+                                target.src = '/default_cover.png';
                               }}
                               className="w-full h-48 object-fill transform group-hover/card:scale-105 transition-transform duration-700 filter sepia-[.3] group-hover/card:sepia-0"
                             />

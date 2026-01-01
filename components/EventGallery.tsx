@@ -268,7 +268,16 @@ const EventGallery: React.FC<EventGalleryProps> = ({ currentTheme }) => {
                       ) : (
                           <>
                               {/* Thumbnail Overlay */}
-                              <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+                              <img 
+                                src={video.thumbnail || '/default_cover.png'} 
+                                alt={video.title} 
+                                onError={(e) => {
+                                  const target = e.target as HTMLImageElement;
+                                  target.onerror = null;
+                                  target.src = '/default_cover.png';
+                                }}
+                                className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" 
+                              />
                               
                               {/* Play Button */}
                               <div className="absolute inset-0 flex items-center justify-center">
