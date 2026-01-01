@@ -1,0 +1,72 @@
+{
+  "articles": [
+    {
+      "id": "1",
+      "title": "【招新】2024秋季社团招新最终日程表",
+      "date": "2024-09-01",
+      "summary": "错过了百团大战？别担心！补招通道现已开启，Cosplay部、宅舞部、后勤部余量充足。",
+      "link": "#"
+    },
+    {
+      "id": "2",
+      "title": "【喜报】我社舞台剧《赛博朋克：边缘行者》斩获金奖",
+      "date": "2024-08-15",
+      "summary": "热烈祝贺檐枫剧组在第15届全省高校动漫联展中荣获“最佳舞台剧”与“最佳道具”两项大奖！",
+      "link": "#"
+    },
+    {
+      "id": "3",
+      "title": "【活动预告】本周五“恐怖游戏”主题桌游夜",
+      "date": "2024-10-28",
+      "summary": "万圣节特别企划！血染钟楼、由于是万圣节所以即使是社恐也要来玩哦。",
+      "link": "#"
+    },
+    {
+      "id": "4",
+      "title": "【公告】关于活动室（302）使用规范的再次强调",
+      "date": "2024-10-20",
+      "summary": "近期发现活动室有垃圾残留现象，请各位社员离开时务必带走个人垃圾，维护社团环境。",
+      "link": "#"
+    },
+    {
+      "id": "5",
+      "title": "【GMA】第十届金枫叶奖入围名单公示",
+      "date": "2024-10-15",
+      "summary": "经过两周的激烈角逐，共有12组作品入围最终决赛，快来看看有没有你支持的UP主！",
+      "link": "#"
+    },
+    {
+      "id": "6",
+      "title": "【教程】如何从零开始制作一把“誓约胜利之剑”",
+      "date": "2024-09-20",
+      "summary": "道具组组长亲授！低成本EVA制作教程，手残党也能学会。",
+      "link": "#"
+    }
+  ],
+  "videos": [
+    {
+      "id": "v2",
+      "title": "【舞台剧】进击的巨人：最终章 - 完整录像",
+      "url": "https://player.bilibili.com/player.html?bvid=BV1GJ411x7h7",
+      "type": "bilibili",
+      "thumbnail": "",
+      "category": "winter"
+    },
+    {
+      "id": "v3",
+      "title": "【社庆】檐枫十周年 - 历届社长寄语",
+      "url": "https://player.bilibili.com/player.html?bvid=BV1GJ411x7h7",
+      "type": "bilibili",
+      "thumbnail": "",
+      "category": "anniversary"
+    },
+    {
+      "id": "v4",
+      "title": "【日常】突击检查！社团活动室里大家都在干什么？",
+      "url": "https://player.bilibili.com/player.html?bvid=BV1GJ411x7h7",
+      "type": "bilibili",
+      "thumbnail": "",
+      "category": "daily"
+    }
+  ]
+}

@@ -7,10 +7,10 @@ interface EventGalleryProps {
   currentTheme: AppTheme;
 }
 
+import { fetchVideos, addVideo, deleteVideo } from '../services/videoService';
+
 const EventGallery: React.FC<EventGalleryProps> = ({ currentTheme }) => {
-  const [videos, setVideos] = useState<VideoContent[]>([
-    { id: 'v1', title: '2025冬日祭全程录像', url: 'https://player.bilibili.com/player.html?bvid=BV1GJ411x7h7', type: 'bilibili', thumbnail: 'https://picsum.photos/seed/video1/800/450', category: 'winter' },
-  ]);
+  const [videos, setVideos] = useState<VideoContent[]>([]);
   const [playingVideoId, setPlayingVideoId] = useState<string | null>(null);
 
   // Filter State
@@ -30,12 +30,21 @@ const EventGallery: React.FC<EventGalleryProps> = ({ currentTheme }) => {
 
   // Fetch videos from backend on mount
   React.useEffect(() => {
-    // ... same as before
+    const loadVideos = async () => {
+        const data = await fetchVideos();
+        setVideos(data);
+    };
+    loadVideos();
   }, []);
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (window.confirm('确定要删除这个视频吗？')) {
-      setVideos(videos.filter(v => v.id !== id));
+      const success = await deleteVideo(id);
+      if (success) {
+          setVideos(videos.filter(v => v.id !== id));
+      } else {
+          alert('删除失败，请稍后重试');
+      }
     }
   };
 
@@ -49,7 +58,7 @@ const EventGallery: React.FC<EventGalleryProps> = ({ currentTheme }) => {
     }
   };
 
-  const handleBilibiliSubmit = (e: React.FormEvent) => {
+  const handleBilibiliSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (bilibiliLink && coverImageFile && videoTitle) {
       
@@ -65,27 +74,38 @@ const EventGallery: React.FC<EventGalleryProps> = ({ currentTheme }) => {
       }
 
       // In real scenario, here we would upload the file first or convert to Base64
-      const newVideo: VideoContent = {
-        id: Date.now().toString(),
+      // For now, we just pass the blob URL or a placeholder, as JSON server can't handle file uploads easily without middleware
+      // We will assume the "backend" handles image storage and returns a URL. 
+      // Since we are using json-server, we'll just save the mock URL we created locally, 
+      // BUT NOTE: Blob URLs only work in the current session. 
+      // For a better persistent demo, we might want to use a static image or a placeholder service if we can't upload.
+      // Let's use the coverPreviewUrl for now, but warn user.
+      
+      const newVideoData: Omit<VideoContent, 'id'> = {
         title: videoTitle,
         url: cleanUrl,
         type: 'bilibili',
-        thumbnail: coverPreviewUrl, // Using blob URL for now, backend should return a real URL
+        thumbnail: coverPreviewUrl, 
         category: uploadCategory
       };
 
-      // Temporary local update for demonstration
-      setVideos([newVideo, ...videos]);
-      
-      // Reset form
-      setBilibiliLink('');
-      setVideoTitle('');
-      setCoverImageFile(null);
-      setCoverPreviewUrl('');
-      setShowForm(false);
-      
-      // Optionally switch to the category of the uploaded video so user can see it
-      setActiveCategory(uploadCategory); 
+      const savedVideo = await addVideo(newVideoData);
+
+      if (savedVideo) {
+          setVideos([savedVideo, ...videos]);
+          
+          // Reset form
+          setBilibiliLink('');
+          setVideoTitle('');
+          setCoverImageFile(null);
+          setCoverPreviewUrl('');
+          setShowForm(false);
+          
+          // Optionally switch to the category of the uploaded video so user can see it
+          setActiveCategory(uploadCategory); 
+      } else {
+          alert('添加失败，请检查网络或后端状态');
+      }
     }
   };
 

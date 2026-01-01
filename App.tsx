@@ -9,6 +9,7 @@ import Timeline from './components/Timeline';
 import HistoryColumn from './components/HistoryColumn';
 import WeChatNewsColumn from './components/WeChatNewsColumn';
 import FileColumn from './components/FileColumn';
+import { fetchWeChatArticles } from './services/wechatService';
 import { WECHAT_ARTICLES } from './constants';
 import logo from './assets/logo.svg';
 
@@ -22,6 +23,7 @@ const App: React.FC = () => {
     // 其他: 常规
     return AppTheme.DEFAULT;
   });
+  const [wechatNews, setWechatNews] = useState<NewsItem[]>([]);
   const [news, setNews] = useState<NewsItem[]>(MOCK_NEWS);
   const [activeTab, setActiveTab] = useState<'home' | 'events'>('home');
 
@@ -30,14 +32,23 @@ const App: React.FC = () => {
     document.body.setAttribute('data-theme', theme);
   }, [theme]);
 
-  // Simulate "Auto Update" of news (mocking the scraper effect)
+  // Fetch WeChat News
   useEffect(() => {
-    const timer = setInterval(() => {
-      // In a real app, this would fetch from an API
-      // Here we just shuffle or add a mock item occasionally to simulate life
-      console.log('Checking for Wechat updates...');
-    }, 30000);
-    return () => clearInterval(timer);
+    const loadNews = async () => {
+      try {
+        const data = await fetchWeChatArticles();
+        if (data && data.length > 0) {
+            setWechatNews(data);
+        } else {
+            console.warn('Fetch succeeded but returned empty/null, falling back.');
+            setWechatNews(WECHAT_ARTICLES);
+        }
+      } catch (e) {
+        console.error("Failed to load news due to error:", e);
+        setWechatNews(WECHAT_ARTICLES);
+      }
+    };
+    loadNews();
   }, []);
 
   return (
@@ -161,7 +172,7 @@ const App: React.FC = () => {
 
                     {/* MIDDLE COLUMN: WeChat News (50%) */}
                     <div className="lg:col-span-5 space-y-8">
-                        <WeChatNewsColumn news={WECHAT_ARTICLES} />
+                        <WeChatNewsColumn news={wechatNews} />
                     </div>
 
                     {/* RIGHT COLUMN: Notices / About (30%) */}
