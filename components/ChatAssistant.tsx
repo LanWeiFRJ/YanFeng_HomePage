@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Sparkles } from 'lucide-react';
-import { sendMessageToGemini } from '../services/geminiService';
+import { sendMessageToDify } from '../services/difyService';
 import { ChatMessage } from '../types';
 
 const ChatAssistant: React.FC = () => {
@@ -28,7 +28,7 @@ const ChatAssistant: React.FC = () => {
     setInput('');
     setIsLoading(true);
 
-    const responseText = await sendMessageToGemini(input);
+    const responseText = await sendMessageToDify(input);
     
     const botMsg: ChatMessage = { id: (Date.now() + 1).toString(), role: 'model', text: responseText };
     setMessages(prev => [...prev, botMsg]);

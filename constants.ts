@@ -30,7 +30,7 @@ export const WECHAT_ARTICLES: NewsItem[] = [
     // tag removed
     // source removed
     link: '#',
-    coverUrl: 'https://picsum.photos/seed/yanfeng1/400/200'
+    // coverUrl: 'https://picsum.photos/seed/yanfeng1/400/200'
   },
   {
     id: '2',
@@ -41,7 +41,7 @@ export const WECHAT_ARTICLES: NewsItem[] = [
     // tag removed
     // source removed
     link: '#',
-    coverUrl: 'https://picsum.photos/seed/yanfeng2/400/200'
+    // coverUrl: 'https://picsum.photos/seed/yanfeng2/400/200'
   },
    {
     id: '3',
@@ -52,7 +52,7 @@ export const WECHAT_ARTICLES: NewsItem[] = [
     // tag removed
     // source removed
     link: '#',
-    coverUrl: 'https://picsum.photos/seed/yanfeng3/400/200'
+    // coverUrl: 'https://picsum.photos/seed/yanfeng3/400/200'
   },
   {
     id: '4',

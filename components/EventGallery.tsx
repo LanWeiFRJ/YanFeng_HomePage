@@ -155,7 +155,7 @@ const EventGallery: React.FC<EventGalleryProps> = ({ currentTheme }) => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="搜索视频..."
-                  className="w-full pl-10 pr-4 py-2 rounded-lg border-2 border-[var(--theme-border)] focus:outline-none focus:ring-2 focus:ring-[var(--theme-accent)]/20"
+                  className="w-full pl-10 pr-4 py-2 rounded-lg border-2 border-[var(--theme-border)] focus:outline-none focus:ring-2 focus:ring-[var(--theme-accent)]/20 bg-white text-black"
                 />
              </div>
         </div>
@@ -177,7 +177,7 @@ const EventGallery: React.FC<EventGalleryProps> = ({ currentTheme }) => {
                     value={videoTitle}
                     onChange={(e) => setVideoTitle(e.target.value)}
                     placeholder="输入视频标题..."
-                    className="w-full outline-none bg-transparent"
+                    className="w-full outline-none bg-transparent text-black"
                     required
                   />
                 </div>
@@ -190,7 +190,7 @@ const EventGallery: React.FC<EventGalleryProps> = ({ currentTheme }) => {
                   <select 
                     value={uploadCategory}
                     onChange={(e) => setUploadCategory(e.target.value as VideoCategory)}
-                    className="w-full outline-none bg-transparent appearance-none cursor-pointer"
+                    className="w-full outline-none bg-transparent appearance-none cursor-pointer text-black"
                   >
                     {CATEGORIES.filter(c => c.id !== 'all').map(cat => (
                       <option key={cat.id} value={cat.id}>{cat.icon} {cat.label}</option>
@@ -208,7 +208,7 @@ const EventGallery: React.FC<EventGalleryProps> = ({ currentTheme }) => {
                     value={bilibiliLink}
                     onChange={(e) => setBilibiliLink(e.target.value)}
                     placeholder='例如：<iframe src="//player.bilibili.com/..." ...></iframe>'
-                    className="w-full outline-none bg-transparent"
+                    className="w-full outline-none bg-transparent text-black"
                     required
                   />
                 </div>
@@ -223,7 +223,7 @@ const EventGallery: React.FC<EventGalleryProps> = ({ currentTheme }) => {
                     type="file" 
                     accept="image/*"
                     onChange={handleImageChange}
-                    className="w-full outline-none bg-transparent"
+                    className="w-full outline-none bg-transparent text-black"
                     required
                   />
                 </div>
@@ -317,7 +317,9 @@ const EventGallery: React.FC<EventGalleryProps> = ({ currentTheme }) => {
              <div className="inline-block p-6 rounded-full bg-[var(--theme-secondary)] border-4 border-[var(--theme-border)] mb-4">
                <Film size={48} className="text-[var(--theme-primary)]" />
              </div>
-             <p className="font-bold text-xl text-[var(--theme-border)]">该分类下暂无视频</p>
+             <p className="font-bold text-xl text-[var(--theme-border)]">
+               {searchQuery ? `未找到与 "${searchQuery}" 相关的视频` : '该分类下暂无视频'}
+             </p>
           </div>
         )}
       </div>

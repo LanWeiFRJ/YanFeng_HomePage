@@ -43,16 +43,18 @@ const WeChatNewsColumn: React.FC<WeChatNewsColumnProps> = ({ news }) => {
                         </h3>
 
                         {/* Cover Image (Printed on Ticket) */}
-                        {item.coverUrl && (
+                        {/* Always render container to keep layout stable */}
                           <div className="mb-4 relative overflow-hidden rounded border-2 border-[var(--theme-border)]">
                             <div className="absolute inset-0 bg-[var(--theme-primary)]/10 z-10 group-hover/card:bg-transparent transition-colors duration-500"></div>
                             <img 
-                              src={item.coverUrl} 
+                              src={item.coverUrl || '/default_cover.png'} 
                               alt={item.title} 
-                              className="w-full h-48 object-cover transform group-hover/card:scale-105 transition-transform duration-700 filter sepia-[.3] group-hover/card:sepia-0"
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).src = '/default_cover.png';
+                              }}
+                              className="w-full h-48 object-fill transform group-hover/card:scale-105 transition-transform duration-700 filter sepia-[.3] group-hover/card:sepia-0"
                             />
                           </div>
-                        )}
 
                         {/* Dashed Separator */}
                         <div className="w-full border-t-2 border-dashed border-[var(--theme-primary)] my-2"></div>
@@ -64,7 +66,12 @@ const WeChatNewsColumn: React.FC<WeChatNewsColumnProps> = ({ news }) => {
 
                         {/* Footer Link */}
                         <div className="mt-auto flex justify-end">
-                            <a href={item.link} className="text-xs font-bold text-[var(--theme-darkRed)] hover:text-[var(--theme-primary)] hover:underline flex items-center gap-1 transition-colors">
+                            <a 
+                                href={item.link} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-xs font-bold text-[var(--theme-darkRed)] hover:text-[var(--theme-primary)] hover:underline flex items-center gap-1 transition-colors"
+                            >
                                 阅读更多 &gt;&gt;
                             </a>
                         </div>
